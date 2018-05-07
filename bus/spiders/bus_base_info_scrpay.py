@@ -1,7 +1,7 @@
 import scrapy
 
 class QuotesSpider(scrapy.Spider):
-    name = "sh_bus"
+    name = "sh_bus_base"
     ip = "180.166.5.82:8000"
     def start_requests(self):
         uri = "/palmbus_serv/PalmBusJgj/getLineInfoByName.do?linename=583%E8%B7%AF"

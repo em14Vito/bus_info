@@ -1,5 +1,6 @@
 # v1 start
 # time : 2018年05月06日18:55:17
+
 CREATE TABLE `stop_real_time_msg` (
   `stop_real_time_msg` INT(16) UNSIGNED NOT NULL AUTO_INCREMENT,
   `stop_info_id` INT(16) UNSIGNED NOT NULL ,
@@ -23,6 +24,7 @@ CREATE TABLE `stop_info` (
   `distance` INT(20) DEFAULT NULL COMMENT '车距离该站点距离多远 , 单位 米',
   `remain_time` INT(20) DEFAULT NULL COMMENT '大约还剩下多少时间,单位 秒',
   `remain_stop` INT(20) DEFAULT NULL COMMENT '大约还剩下多少个站点, ',
+    `is_favour` INT(2) DEFAULT NULL COMMENT '0=>false; 1=> true',
   PRIMARY KEY (`stop_info_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
@@ -45,7 +47,8 @@ CREATE TABLE `bus_info` (
   `create_time` TIMESTAMP NULL DEFAULT NULL,
   `modify_time` TIMESTAMP NULL DEFAULT NULL,
   `bus_name` VARCHAR(500) DEFAULT NULL,
-  `is_favour` INT(2) DEFAULT NULL COMMENT '0=>false; 1=> true',
   KEY `bus_info_id` (`bus_info_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+
 #v1 end
