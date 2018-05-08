@@ -46,6 +46,7 @@ CREATE TABLE `bus_info` (
   `bus_info_id` INT(16) UNSIGNED NOT NULL AUTO_INCREMENT,
   `create_time` TIMESTAMP NULL DEFAULT NULL,
   `modify_time` TIMESTAMP NULL DEFAULT NULL,
+  `bus_id` VARCHAR(500) DEFAULT NULL,
   `bus_name` VARCHAR(500) DEFAULT NULL,
   KEY `bus_info_id` (`bus_info_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;

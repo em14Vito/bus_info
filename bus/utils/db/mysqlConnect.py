@@ -1,6 +1,8 @@
 import pymysql.cursors
 # https://pypi.org/project/PyMySQL/
 import pymysql
+import time
+import datetime
 
 class baseDB():
 
@@ -22,12 +24,16 @@ class baseDB():
             # your changes.
             # connection.commit()
 
-            with self.connection.cursor() as cursor:
-                # Read a single record
-                sql = "SELECT `bus_name` FROM `bus_info` WHERE 1=1"
-                cursor.execute(sql)
-                result = cursor.fetchone()
-                print(result)
+            cursor = self.connection.cursor()
+
+            ts = time.time()
+            timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+            sql = "INSERT INTO `bus_info` (`create_time`,`modify_time`,`bus_id`, `bus_name`) VALUES (%s,%s,%s, %s)"
+            cursor.execute(sql,(timestamp,timestamp,'11','583路'))
+            self.connection.commit()
+        except BaseException as err:  # as 加原因参数名称
+            print('Exception: ', err)
+            self.connection.rollback()
         finally:
             self.connection.close()
 
