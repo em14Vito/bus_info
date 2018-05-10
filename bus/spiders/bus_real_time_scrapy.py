@@ -42,7 +42,20 @@ class RealTimeSpider(scrapy.Spider):
     # 处理bus 基本 的信息(持久化)
     def deal_real_time_info(self,response):
         resp = response.body.decode("utf-8")
-        print(resp)
 
+        favourt_info = response.meta['favour']
 
+        favourt_info = {"stop_info_id":12}
 
+        parser = etree.XMLParser()
+        parse_data = etree.HTML(response.body, parser)
+
+        all_bus = parse_data.xpath('//cars/car')
+
+        for bus in all_bus:
+            do = {'car_name':bus.find('terminal').text,
+                  'distance':bus.find('distance').text,
+                  'remain_time': bus.find('time').text,
+                  'remain_stop': bus.find('stopdis').text,
+                  'stop_info_id': favourt_info.get('stop_info_id')}
+            self.persistent.insertRealTimeStopInfo(do)

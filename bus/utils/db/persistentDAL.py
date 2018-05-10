@@ -74,3 +74,23 @@ class persistentUtils(baseDB):
             self.connection.rollback()
         # finally:
         #     self.connection.close()
+
+
+    def insertRealTimeStopInfo(self,data):
+        #持久化数据
+        id = ''
+        try:
+            with self.connection.cursor() as cursor:
+                cursor = self.connection.cursor()
+                ts = time.time()
+                timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+                sql = "INSERT INTO `stop_real_time_msg` (`create_time`,`modify_time`,`stop_info_id`, `car_name`, `distance`," \
+                      "`remain_time`,`remain_stop`)"\
+                    "VALUES (%s,%s,%s,%s,%s,%s,%s)"
+                cursor.execute(sql, (timestamp, timestamp,data.get("stop_info_id"),data.get("car_name"),
+                                     data.get("distance"),data.get("remain_time"),data.get("remain_stop")))
+                id = cursor.lastrowid
+                self.connection.commit()
+        except BaseException as err:  # as 加原因参数名称
+            print('Exception: %s' % err)
+            self.connection.rollback()

@@ -10,7 +10,7 @@ CREATE TABLE `stop_real_time_msg` (
   `distance` INT(20) DEFAULT NULL COMMENT '车距离该站点距离多远 , 单位 米',
   `remain_time` INT(20) DEFAULT NULL COMMENT '大约还剩下多少时间,单位 秒',
   `remain_stop` INT(20) DEFAULT NULL COMMENT '大约还剩下多少个站点, ',
-  PRIMARY KEY (`stop_real_time_msg`)
+  PRIMARY KEY (`stop_real_time_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 
