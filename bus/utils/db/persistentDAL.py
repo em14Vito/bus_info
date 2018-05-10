@@ -56,5 +56,21 @@ class persistentUtils(baseDB):
         return id
 
     def insertStopInfo(self,data):
-        #TODO 持久化数据
-        return ''
+        #持久化数据
+        id = ''
+        try:
+            with self.connection.cursor() as cursor:
+                cursor = self.connection.cursor()
+                ts = time.time()
+                timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+                sql = "INSERT INTO `stop_info` (`create_time`,`modify_time`,`line_info_id`, `stop_id`, `stop_name`)"\
+                    "VALUES (%s,%s,%s,%s,%s)"
+                cursor.execute(sql, (timestamp, timestamp,data.get("line_info_id"),data.get("stop_id"),data.get("stop_name")))
+                id = cursor.lastrowid
+                self.connection.commit()
+        except BaseException as err:  # as 加原因参数名称
+            # self.log('Exception: %s' % err,level=logging.ERROR)
+            print('Exception: %s' % err)
+            self.connection.rollback()
+        # finally:
+        #     self.connection.close()

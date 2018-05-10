@@ -6,6 +6,7 @@ CREATE TABLE `stop_real_time_msg` (
   `stop_info_id` INT(16) UNSIGNED NOT NULL ,
   `create_time` TIMESTAMP NULL DEFAULT NULL,
   `modify_time` TIMESTAMP NULL DEFAULT NULL,
+  `car_name` VARCHAR(100) DEFAULT NULL,
   `distance` INT(20) DEFAULT NULL COMMENT '车距离该站点距离多远 , 单位 米',
   `remain_time` INT(20) DEFAULT NULL COMMENT '大约还剩下多少时间,单位 秒',
   `remain_stop` INT(20) DEFAULT NULL COMMENT '大约还剩下多少个站点, ',
@@ -19,12 +20,8 @@ CREATE TABLE `stop_info` (
   `modify_time` TIMESTAMP NULL DEFAULT NULL,
   `line_info_id` INT(16) DEFAULT NULL COMMENT '关联线路信息id',
   `stop_id` VARCHAR(30) DEFAULT NULL,
-  `stop_name` INT(11) DEFAULT NULL,
-  `car_name` INT(11) DEFAULT NULL,
-  `distance` INT(20) DEFAULT NULL COMMENT '车距离该站点距离多远 , 单位 米',
-  `remain_time` INT(20) DEFAULT NULL COMMENT '大约还剩下多少时间,单位 秒',
-  `remain_stop` INT(20) DEFAULT NULL COMMENT '大约还剩下多少个站点, ',
-    `is_favour` INT(2) DEFAULT NULL COMMENT '0=>false; 1=> true',
+  `stop_name` VARCHAR(50) DEFAULT NULL,
+  `is_favour` INT(2) DEFAULT NULL COMMENT '0=>false; 1=> true',
   PRIMARY KEY (`stop_info_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 

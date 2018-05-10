@@ -14,8 +14,8 @@ class baseDB():
         self.connection = pymysql.connect(host='127.0.0.1',
                                      user='root',
                                      password='root',
-                                     db='pika',
-                                     # db='inscore_test',
+                                     # db='pika',
+                                     db='inscore_test',
                                      charset='utf8mb4',
                                      cursorclass=pymysql.cursors.DictCursor)
 

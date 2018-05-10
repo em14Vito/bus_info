@@ -86,31 +86,11 @@ class QuotesSpider(scrapy.Spider):
         bus_info_data = response.meta['bus_info']
         line_info = self.deal_line_info(bus_info_data)
 
-
-        #处理 站点信息
-        data = response.body
-        parser = etree.XMLParser()
-        parse_data = etree.HTML(data, parser)
-
-        #查找线路名称:
-        lineResultSet = set()
-        try:
-            for i in re.findall("lineResults\d",data.decode('utf-8')):
-                lineResultSet.add(i)
-        except BaseException as err:
-            print('Exception: %s' % err)
-
-        #查找各个线路的站点名称跟id
-        for lineResult in lineResultSet:
-
-            all_stop = parse_data.xpath('//lineInfoDetails/'+str(lineResult)+'/stop')
-            #TODO 根据第一个stop的name，找出对应的line_info_id (从 dict (line_info ) 中)
-            # print(all_stop)
-            for stop in all_stop:
-                #TODO 持久化对应的站点信息
-                print("id is: {0} , stop name is {1}".format(stop.find('id').text, stop.find('zdmc').text))
+        self.deal_stop_info(response.body,line_info)
 
 
+
+    #处理 line_info 信息
     def deal_line_info(self,data):
         #正向:
         positive_way = {
@@ -141,3 +121,34 @@ class QuotesSpider(scrapy.Spider):
         result[negative_way.get('direction_start_stop')] = id
 
         return result
+
+    #处理 stop_info 信息
+    def deal_stop_info(self,data,line_info):
+        #查找线路名称:
+        lineResultSet = set()
+        try:
+            for i in re.findall("lineResults\d",data.decode('utf-8')):
+                lineResultSet.add(i)
+        except BaseException as err:
+            print('Exception: %s' % err)
+
+        #处理 站点信息
+        parser = etree.XMLParser()
+        parse_data = etree.HTML(data, parser)
+        #查找各个线路的站点名称跟id
+        for lineResult in lineResultSet:
+
+            all_stop = parse_data.xpath('//lineInfoDetails/'+str(lineResult)+'/stop')
+            #TODO 根据第一个stop的name，找出对应的line_info_id (从 dict (line_info ) 中)
+            first_stop_name = all_stop[0].find('zdmc').text
+            line_info_id = line_info.get(first_stop_name)
+
+            for stop in all_stop:
+                #TODO 持久化对应的站点信息
+                print("id is: {0} , stop name is {1}".format(stop.find('id').text, stop.find('zdmc').text))
+                do = {
+                    'stop_id':stop.find('id').text,
+                    'stop_name':stop.find('zdmc').text,
+                    'line_info_id':line_info_id
+                }
+                self.persistent.insertStopInfo(do)
