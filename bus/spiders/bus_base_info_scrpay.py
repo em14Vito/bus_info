@@ -79,7 +79,7 @@ class QuotesSpider(scrapy.Spider):
                   'start_stop': start_stop}
         return result
 
-    # 处理站点(线路)信息 (持久化)
+    # 处理站点(线路)信息
     def deal_line_and_stop_info(self,response):
 
         #处理 线路概要信息
@@ -90,7 +90,7 @@ class QuotesSpider(scrapy.Spider):
 
 
 
-    #处理 line_info 信息
+    #处理 line_info 信息 (持久化)
     def deal_line_info(self,data):
         #正向:
         positive_way = {
@@ -122,7 +122,7 @@ class QuotesSpider(scrapy.Spider):
 
         return result
 
-    #处理 stop_info 信息
+    #处理 stop_info 信息 (持久化)
     def deal_stop_info(self,data,line_info):
         #查找线路名称:
         lineResultSet = set()

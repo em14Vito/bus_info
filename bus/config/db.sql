@@ -2,7 +2,7 @@
 # time : 2018年05月06日18:55:17
 
 CREATE TABLE `stop_real_time_msg` (
-  `stop_real_time_msg` INT(16) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `stop_real_time_id` INT(16) UNSIGNED NOT NULL AUTO_INCREMENT,
   `stop_info_id` INT(16) UNSIGNED NOT NULL ,
   `create_time` TIMESTAMP NULL DEFAULT NULL,
   `modify_time` TIMESTAMP NULL DEFAULT NULL,
