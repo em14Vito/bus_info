@@ -32,7 +32,8 @@ class RealTimeSpider(scrapy.Spider):
         for item in favour_info:
             params = {'lineid': item.get('bus_id'),
                       'stopid': item.get('stop_id'),
-                      'direction': item.get('direction_id')
+                      'direction': item.get('direction_id'),
+                      'my' : '2795EC1B1C83C59E2BAE3377636049F2'
                       }
             yield scrapy.Request(url=R.uri_stop_real_time_monitor+"?"+parse.urlencode(params),
                                  callback=self.deal_real_time_info,method='GET',meta={'favour':favour_info})
