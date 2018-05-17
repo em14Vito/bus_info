@@ -36,7 +36,7 @@ class RealTimeSpider(scrapy.Spider):
                       'my' : '2795EC1B1C83C59E2BAE3377636049F2'
                       }
             yield scrapy.Request(url=R.uri_stop_real_time_monitor+"?"+parse.urlencode(params),
-                                 callback=self.deal_real_time_info,method='GET',meta={'favour':favour_info})
+                                 callback=self.deal_real_time_info,method='GET',meta={'favour':item})
 
 
 
@@ -45,8 +45,6 @@ class RealTimeSpider(scrapy.Spider):
         resp = response.body.decode("utf-8")
 
         favourt_info = response.meta['favour']
-
-        favourt_info = {"stop_info_id":12}
 
         parser = etree.XMLParser()
         parse_data = etree.HTML(response.body, parser)

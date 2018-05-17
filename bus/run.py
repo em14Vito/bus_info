@@ -14,4 +14,4 @@ def re_exe(inc):
         time.sleep(inc)
 
 while True:
-    re_exe(10)
+    re_exe(60)
