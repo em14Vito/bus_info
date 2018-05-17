@@ -14,6 +14,7 @@ BOT_NAME = 'bus'
 SPIDER_MODULES = ['bus.spiders']
 NEWSPIDER_MODULE = 'bus.spiders'
 
+LOG_LEVEL = 'INFO'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'bus (+http://www.yourdomain.com)'
@@ -39,10 +40,14 @@ ROBOTSTXT_OBEY = True
 #TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-#DEFAULT_REQUEST_HEADERS = {
-#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-#   'Accept-Language': 'en',
-#}
+DEFAULT_REQUEST_HEADERS = {
+  # 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  # 'Accept-Language': 'en',
+  'User-Agent' : 'Dalvik/2.1.0 (Linux; U; Android 6.0.1; SM901 Build/MXB48T)',
+  'Host' : '180.166.5.82:8000',
+  'Accept-Encoding': 'gzip'
+
+}
 
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
